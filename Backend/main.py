@@ -33,6 +33,7 @@ def get_bearer_token():
 
 @app.get('/categories/{category_name}/products')
 def fetch_all_products(category_name: str, 
+    product_id: Optional[str] = None,
     n: Optional[int] = Query(10), 
     minPrice: Optional[int] = Query(10), 
     maxPrice: Optional[int] = Query(2000), ):
@@ -56,6 +57,7 @@ def fetch_all_products(category_name: str,
     token = get_bearer_token()
     print(token)
 
+
     for companyname in companies:
         url = f'http://20.244.56.144/test/companies/{companyname}/categories/{category_name}/products'
         params = {
@@ -73,7 +75,12 @@ def fetch_all_products(category_name: str,
         if response.status_code == 200:
             #The data is successfully fetched from server
             products = response.json()
-            results.extend(products)
+            print(product_id)
+            if product_id:
+                filtered_products = [product for product in products if product.get('productId') == product_id]
+                results.extend(filtered_products)
+            else:
+                results.extend(products)
         else:
             #fetching failed
             print("Fetch failed")
