@@ -77,7 +77,7 @@ def fetch_all_products(category_name: str,
             products = response.json()
             print(product_id)
             if product_id:
-                filtered_products = [product for product in products if product.get('productId') == product_id]
+                filtered_products = [product for product in products if product.get('productName') == product_id]
                 results.extend(filtered_products)
             else:
                 results.extend(products)
