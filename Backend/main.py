@@ -34,9 +34,9 @@ def get_bearer_token():
 @app.get('/categories/{category_name}/products')
 def fetch_all_products(category_name: str, 
     product_id: Optional[str] = None,
-    n: Optional[int] = Query(10), 
-    minPrice: Optional[int] = Query(10), 
-    maxPrice: Optional[int] = Query(2000), ):
+    n: Optional[int] = 10, 
+    minPrice: Optional[int] = 10, 
+    maxPrice: Optional[int] = 2000, ):
     """
     API for getting products.
 
